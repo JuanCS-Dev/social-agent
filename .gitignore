@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Runtime data
+*.db
+var/data/*.db
+
+# Credentials / local deploy files
+.env
+.env.*
+ops/cloudrun/*.env
+!ops/cloudrun/*.env.example
+ops/observability/dashboards/*.dashboard.json
+ops/observability/alerts/*.json
+
+# OS/editor
+.DS_Store
