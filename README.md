@@ -1,7 +1,7 @@
 # Social Agent
 
 <p align="center">
-  <img src="docs/assets/banner-placeholder.svg" alt="Social Agent banner placeholder" width="100%" />
+  <img src="docs/assets/banner.png" alt="Social Agent banner" width="100%" />
 </p>
 
 <p align="center">
@@ -17,12 +17,10 @@ Agente social autonomo multi-plataforma com ingestao por webhook, loop OODA, est
 
 Este repositorio e independente de outros servicos no mesmo projeto GCP.
 
-## Visual placeholders
+## Visual assets
 
-> Substitua os placeholders em `docs/assets/` quando tiver o material final.
-
-### Arquitetura (placeholder)
-![Architecture Placeholder](docs/assets/architecture-placeholder.svg)
+### Arquitetura
+![Architecture Diagram](docs/assets/arquitetura.png)
 
 ### Dashboard (placeholder)
 ![Dashboard Placeholder](docs/assets/dashboard-placeholder.svg)
