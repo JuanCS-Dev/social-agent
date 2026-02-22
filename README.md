@@ -114,6 +114,7 @@ cp ops/cloudrun/secrets.env.example ops/cloudrun/secrets.env
 
 ## Documentacao
 
+- Sistema completo (arquitetura/operacao): `SYSTEM_DOCUMENTATION.md`
 - Deploy anti-burro: `docs/passo_a_passo_deploy_anti_burro.md`
 - Conexao de contas: `docs/conectar_contas_plataformas_anti_burro.md`
 - X sem API paga: `docs/x_operacao_sem_api_paga.md`
