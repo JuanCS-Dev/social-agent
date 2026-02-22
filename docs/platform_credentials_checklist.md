@@ -19,15 +19,12 @@ Use este arquivo para controlar status sem expor segredos.
 - [ ] `REDDIT_PASSWORD` definido
 - [ ] Escopos minimos revisados
 
-## X
+## X (obrigatorio na estrategia)
 
-- [ ] Projeto/app criado no portal
-- [ ] Callback URL de staging definido
-- [ ] `X_API_KEY` obtido
-- [ ] `X_API_SECRET` obtido
-- [ ] `X_ACCESS_TOKEN` obtido
-- [ ] `X_ACCESS_SECRET` obtido
-- [ ] `X_BEARER_TOKEN` (opcional) obtido
+- [ ] `X_EXECUTION_MODE` definido (`operator` sem API paga ou `api`)
+- [ ] `X_WEBHOOK_TOKEN` gerado e salvo em segredo
+- [ ] Webhook `/webhooks/x` testado com token
+- [ ] Se `X_EXECUTION_MODE=api`: `X_ACCESS_TOKEN` obtido
 
 ## Meta (Facebook + Instagram)
 
@@ -49,6 +46,6 @@ Use este arquivo para controlar status sem expor segredos.
 
 ## Pronto para deploy
 
-- [ ] Todos os blocos acima completos
+- [ ] Reddit + Meta + X prontos
 - [ ] `ALLOW_UPDATE_EXISTING_SERVICE=0` confirmado
 - [ ] Deploy de staging liberado

@@ -39,6 +39,22 @@ ENVIRONMENT="${ENVIRONMENT:-staging}"
 GCP_LOCATION="${GCP_LOCATION:-global}"
 DATABASE_URL="${DATABASE_URL:-sqlite+aiosqlite:////tmp/social_agent.db}"
 REDDIT_USER_AGENT="${REDDIT_USER_AGENT:-ByteSocialAgent/1.0.0}"
+AUTONOMY_POLL_SECONDS="${AUTONOMY_POLL_SECONDS:-5}"
+AUTONOMY_ENABLE_PROACTIVE="${AUTONOMY_ENABLE_PROACTIVE:-1}"
+AUTONOMY_USE_LLM_GENERATION="${AUTONOMY_USE_LLM_GENERATION:-1}"
+AUTONOMY_MAX_PROACTIVE_ACTIONS_PER_TICK="${AUTONOMY_MAX_PROACTIVE_ACTIONS_PER_TICK:-1}"
+AUTONOMY_ENABLE_GROUNDING="${AUTONOMY_ENABLE_GROUNDING:-1}"
+AUTONOMY_REQUIRE_GROUNDING="${AUTONOMY_REQUIRE_GROUNDING:-1}"
+AUTONOMY_DEFAULT_LANGUAGE="${AUTONOMY_DEFAULT_LANGUAGE:-pt}"
+AGENT_GOAL="${AGENT_GOAL:-Construir audiencia de alta lealdade e crescer alcance com conteudo de alta conviccao.}"
+AGENT_IDEOLOGY="${AGENT_IDEOLOGY:-Lideranca forte, responsabilidade individual, liberdade economica, disciplina e resultado.}"
+AGENT_MORAL_FRAMEWORK="${AGENT_MORAL_FRAMEWORK:-Sem coercao, sem assedio, sem desinformacao, sem manipulacao predatoria.}"
+AGENT_DOMINANT_MODE="${AGENT_DOMINANT_MODE:-1}"
+AGENT_PRIMARY_CTA="${AGENT_PRIMARY_CTA:-Siga e ative notificacoes para acompanhar os proximos movimentos.}"
+AGENT_GROWTH_KPI_PRIORITIES="${AGENT_GROWTH_KPI_PRIORITIES:-reach,share_rate,follow_conversion,retention}"
+INSTAGRAM_DEFAULT_IMAGE_URL="${INSTAGRAM_DEFAULT_IMAGE_URL:-}"
+X_EXECUTION_MODE="${X_EXECUTION_MODE:-operator}"
+OPERATOR_FALLBACK_ON_API_ERROR="${OPERATOR_FALLBACK_ON_API_ERROR:-1}"
 SERVICE_ACCOUNT_NAME="${SERVICE_ACCOUNT_NAME:-social-agent-sa}"
 SERVICE_ACCOUNT_EMAIL="${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 ALLOW_UPDATE_EXISTING_SERVICE="${ALLOW_UPDATE_EXISTING_SERVICE:-0}"
@@ -47,6 +63,11 @@ MEMORY="${MEMORY:-512Mi}"
 MIN_INSTANCES="${MIN_INSTANCES:-0}"
 MAX_INSTANCES="${MAX_INSTANCES:-3}"
 TIMEOUT_SECONDS="${TIMEOUT_SECONDS:-300}"
+
+if [[ "${X_EXECUTION_MODE}" != "api" && "${X_EXECUTION_MODE}" != "operator" ]]; then
+  echo "Invalid X_EXECUTION_MODE: ${X_EXECUTION_MODE} (use api|operator)"
+  exit 1
+fi
 
 ACTIVE_ACCOUNT="$(gcloud auth list --filter=status:ACTIVE --format='value(account)' | head -n1 || true)"
 if [[ -z "${ACTIVE_ACCOUNT}" ]]; then
@@ -79,17 +100,18 @@ required_secret_bindings=(
   REDDIT_CLIENT_SECRET=reddit-client-secret:latest
   REDDIT_USERNAME=reddit-username:latest
   REDDIT_PASSWORD=reddit-password:latest
-  X_API_KEY=x-api-key:latest
-  X_API_SECRET=x-api-secret:latest
-  X_ACCESS_TOKEN=x-access-token:latest
-  X_ACCESS_SECRET=x-access-secret:latest
   META_PAGE_ACCESS_TOKEN=meta-page-access-token:latest
   META_IG_USER_ID=meta-ig-user-id:latest
   META_APP_SECRET=meta-app-secret:latest
   META_VERIFY_TOKEN=meta-verify-token:latest
+  X_WEBHOOK_TOKEN=x-webhook-token:latest
 )
 
 optional_secret_bindings=(
+  X_API_KEY=x-api-key:latest
+  X_API_SECRET=x-api-secret:latest
+  X_ACCESS_TOKEN=x-access-token:latest
+  X_ACCESS_SECRET=x-access-secret:latest
   X_BEARER_TOKEN=x-bearer-token:latest
 )
 
@@ -137,6 +159,22 @@ env_vars=(
   GCP_LOCATION="${GCP_LOCATION}"
   DATABASE_URL="${DATABASE_URL}"
   REDDIT_USER_AGENT="${REDDIT_USER_AGENT}"
+  AUTONOMY_POLL_SECONDS="${AUTONOMY_POLL_SECONDS}"
+  AUTONOMY_ENABLE_PROACTIVE="${AUTONOMY_ENABLE_PROACTIVE}"
+  AUTONOMY_USE_LLM_GENERATION="${AUTONOMY_USE_LLM_GENERATION}"
+  AUTONOMY_MAX_PROACTIVE_ACTIONS_PER_TICK="${AUTONOMY_MAX_PROACTIVE_ACTIONS_PER_TICK}"
+  AUTONOMY_ENABLE_GROUNDING="${AUTONOMY_ENABLE_GROUNDING}"
+  AUTONOMY_REQUIRE_GROUNDING="${AUTONOMY_REQUIRE_GROUNDING}"
+  AUTONOMY_DEFAULT_LANGUAGE="${AUTONOMY_DEFAULT_LANGUAGE}"
+  AGENT_GOAL="${AGENT_GOAL}"
+  AGENT_IDEOLOGY="${AGENT_IDEOLOGY}"
+  AGENT_MORAL_FRAMEWORK="${AGENT_MORAL_FRAMEWORK}"
+  AGENT_DOMINANT_MODE="${AGENT_DOMINANT_MODE}"
+  AGENT_PRIMARY_CTA="${AGENT_PRIMARY_CTA}"
+  AGENT_GROWTH_KPI_PRIORITIES="${AGENT_GROWTH_KPI_PRIORITIES}"
+  INSTAGRAM_DEFAULT_IMAGE_URL="${INSTAGRAM_DEFAULT_IMAGE_URL}"
+  X_EXECUTION_MODE="${X_EXECUTION_MODE}"
+  OPERATOR_FALLBACK_ON_API_ERROR="${OPERATOR_FALLBACK_ON_API_ERROR}"
 )
 
 ENV_VARS_ARG="$(IFS=,; echo "${env_vars[*]}")"
@@ -165,4 +203,6 @@ echo "Deploy complete."
 echo "Service URL: ${SERVICE_URL}"
 echo "Health check: ${SERVICE_URL}/health"
 echo "Webhook Reddit: ${SERVICE_URL}/webhooks/reddit"
+echo "Webhook X: ${SERVICE_URL}/webhooks/x"
 echo "Webhook Meta verify: ${SERVICE_URL}/webhooks/meta"
+echo "Operator queue: ${SERVICE_URL}/ops/operator/tasks"

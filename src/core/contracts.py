@@ -3,11 +3,13 @@ from enum import Enum
 from pydantic import BaseModel, Field
 from typing import Optional, Any
 
+
 class Platform(str, Enum):
     REDDIT = "reddit"
     X = "x"
     FACEBOOK = "facebook"
     INSTAGRAM = "instagram"
+
 
 class ActionType(str, Enum):
     PUBLISH = "publish"
@@ -15,8 +17,10 @@ class ActionType(str, Enum):
     MODERATE = "moderate"
     SYNC = "sync"
 
+
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
+
 
 class ActionResult(BaseModel):
     ok: bool

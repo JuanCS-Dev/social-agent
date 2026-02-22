@@ -54,6 +54,8 @@ META_METRIC="${METRIC_PREFIX}_meta_webhooks"
 ERRORS_METRIC="${METRIC_PREFIX}_errors"
 DLQ_METRIC="${METRIC_PREFIX}_dlq_events"
 POLICY_BLOCKS_METRIC="${METRIC_PREFIX}_policy_blocks"
+PROACTIVE_METRIC="${METRIC_PREFIX}_proactive_actions"
+REFLECTION_METRIC="${METRIC_PREFIX}_daily_reflections"
 
 upsert_log_metric() {
   local metric_name="$1"
@@ -105,6 +107,16 @@ upsert_log_metric \
   "${POLICY_BLOCKS_METRIC}" \
   "Policy blocks in ${SERVICE_NAME}" \
   "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"${SERVICE_NAME}\" AND textPayload:\"High risk action requires human escalation\""
+
+upsert_log_metric \
+  "${PROACTIVE_METRIC}" \
+  "Proactive actions scheduled by ${SERVICE_NAME}" \
+  "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"${SERVICE_NAME}\" AND textPayload:\"EVENT: proactive_action_scheduled\""
+
+upsert_log_metric \
+  "${REFLECTION_METRIC}" \
+  "Daily reflections completed by ${SERVICE_NAME}" \
+  "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"${SERVICE_NAME}\" AND textPayload:\"EVENT: daily_reflection_completed\""
 
 dashboard_file="${DASHBOARDS_DIR}/${SERVICE_NAME}.dashboard.json"
 cat > "${dashboard_file}" <<EOF
@@ -224,6 +236,64 @@ cat > "${dashboard_file}" <<EOF
             ],
             "yAxis": {
               "label": "blocks",
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "xPos": 0,
+        "yPos": 8,
+        "width": 6,
+        "height": 4,
+        "widget": {
+          "title": "Proactive Actions (sum)",
+          "xyChart": {
+            "dataSets": [
+              {
+                "timeSeriesQuery": {
+                  "timeSeriesFilter": {
+                    "filter": "metric.type=\\"logging.googleapis.com/user/${PROACTIVE_METRIC}\\"",
+                    "aggregation": {
+                      "alignmentPeriod": "60s",
+                      "perSeriesAligner": "ALIGN_SUM"
+                    }
+                  }
+                },
+                "plotType": "LINE"
+              }
+            ],
+            "yAxis": {
+              "label": "actions/min",
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "xPos": 6,
+        "yPos": 8,
+        "width": 6,
+        "height": 4,
+        "widget": {
+          "title": "Daily Reflections (sum)",
+          "xyChart": {
+            "dataSets": [
+              {
+                "timeSeriesQuery": {
+                  "timeSeriesFilter": {
+                    "filter": "metric.type=\\"logging.googleapis.com/user/${REFLECTION_METRIC}\\"",
+                    "aggregation": {
+                      "alignmentPeriod": "60s",
+                      "perSeriesAligner": "ALIGN_SUM"
+                    }
+                  }
+                },
+                "plotType": "LINE"
+              }
+            ],
+            "yAxis": {
+              "label": "reflections",
               "scale": "LINEAR"
             }
           }

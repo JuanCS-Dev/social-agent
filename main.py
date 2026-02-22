@@ -1,5 +1,4 @@
 import uvicorn
-from src.app.server import fastapi_app
 from src.core.logger import log
 
 if __name__ == "__main__":

@@ -23,6 +23,8 @@ Ele cria/atualiza:
 - `social_agent_<service_slug>_errors`
 - `social_agent_<service_slug>_dlq_events`
 - `social_agent_<service_slug>_policy_blocks`
+- `social_agent_<service_slug>_proactive_actions`
+- `social_agent_<service_slug>_daily_reflections`
 
 ## Widgets minimos do dashboard
 
@@ -30,6 +32,8 @@ Ele cria/atualiza:
 2. Erros por minuto (line chart, align sum 60s)
 3. Eventos em DLQ (bar chart, align sum 60s)
 4. Bloqueios de policy (bar chart, align sum 60s)
+5. Acoes proativas por minuto (line chart, align sum 60s)
+6. Reflexoes diarias (line chart, align sum 60s)
 
 ## Alertas baseline
 

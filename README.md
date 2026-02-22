@@ -18,7 +18,8 @@ This repository is isolated from any other existing Cloud Run bot/service.
 3. Fill project and credentials.
 4. `./ops/cloudrun/bootstrap_gcp.sh ops/cloudrun/deploy.env`
 5. `./ops/cloudrun/sync_secrets.sh ops/cloudrun/deploy.env ops/cloudrun/secrets.env`
-6. `./ops/cloudrun/deploy.sh ops/cloudrun/deploy.env`
-7. `./ops/observability/setup_observability.sh ops/cloudrun/deploy.env`
+6. `./ops/cloudrun/predeploy_check.sh ops/cloudrun/deploy.env`
+7. `./ops/cloudrun/deploy.sh ops/cloudrun/deploy.env`
+8. `./ops/observability/setup_observability.sh ops/cloudrun/deploy.env`
 
 Detailed docs are in `docs/passo_a_passo_deploy_anti_burro.md` and `docs/roadmap_implantacao_social_agent_cloudrun.md`.

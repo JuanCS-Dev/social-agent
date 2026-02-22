@@ -118,6 +118,19 @@ gcloud run deploy social-agent \
   --set-secrets reddit_client_id=reddit-client-id:latest
 ```
 
+### 3.3.1 Gate de readiness antes do deploy
+
+```bash
+./ops/cloudrun/predeploy_check.sh ops/cloudrun/deploy.env
+RUN_LIVE_LLM_E2E=1 ./ops/cloudrun/predeploy_check.sh ops/cloudrun/deploy.env
+```
+
+Valida:
+- alvo de projeto/servico
+- segredos obrigatorios no Secret Manager
+- E2E comportamental completo do agente
+- E2E live do LLM (quando habilitado)
+
 ### 3.4 Smoke test
 ```bash
 curl -sS https://<URL_DO_CLOUD_RUN>/health

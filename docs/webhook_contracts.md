@@ -24,7 +24,32 @@ Base URL: `https://<cloud-run-url>`
 }
 ```
 
-## 2) Meta webhook event
+## 2) X event ingest
+
+- Endpoint: `POST /webhooks/x`
+- Auth:
+  - Header opcional no protocolo, mas recomendado no deploy: `X-Social-Agent-Token: <X_WEBHOOK_TOKEN>`.
+  - Se `X_WEBHOOK_TOKEN` estiver definido no runtime e header nao bater, retorna `403`.
+- Content-Type: `application/json`
+- Payload minimo esperado:
+
+```json
+{
+  "tweet_id": "tw_123",
+  "text": "mencao recebida"
+}
+```
+
+- Resposta de sucesso (`200`):
+
+```json
+{
+  "status": "accepted",
+  "event_id": "evt_x_xxxxxxxxxx"
+}
+```
+
+## 3) Meta webhook event
 
 - Endpoint: `POST /webhooks/meta`
 - Auth:
@@ -42,7 +67,7 @@ Base URL: `https://<cloud-run-url>`
 
 - Falha de assinatura em producao: `403`.
 
-## 3) Meta webhook verification
+## 4) Meta webhook verification
 
 - Endpoint: `GET /webhooks/meta`
 - Query params obrigatorios:
@@ -62,6 +87,11 @@ curl -sS "${SERVICE_URL}/health"
 curl -sS -X POST "${SERVICE_URL}/webhooks/reddit" \
   -H 'content-type: application/json' \
   -d '{"text":"smoke from runbook"}'
+
+curl -sS -X POST "${SERVICE_URL}/webhooks/x" \
+  -H 'content-type: application/json' \
+  -H 'x-social-agent-token: <X_WEBHOOK_TOKEN>' \
+  -d '{"tweet_id":"tw_1","text":"smoke x"}'
 
 curl -sS "${SERVICE_URL}/webhooks/meta?hub.mode=subscribe&hub.verify_token=<TOKEN>&hub.challenge=12345"
 ```
