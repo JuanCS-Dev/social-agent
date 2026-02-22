@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-label="Social Agent architecture placeholder">
+  <rect width="1400" height="760" fill="#f5f8fc" />
+  <text x="700" y="70" fill="#0f2947" font-size="40" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Architecture Diagram Placeholder</text>
+
+  <rect x="90" y="160" width="260" height="120" rx="14" fill="#dbe9ff" stroke="#4d79b3" stroke-width="2" />
+  <text x="220" y="225" fill="#123357" font-size="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Webhooks</text>
+
+  <rect x="430" y="160" width="260" height="120" rx="14" fill="#dbe9ff" stroke="#4d79b3" stroke-width="2" />
+  <text x="560" y="225" fill="#123357" font-size="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Event Queue</text>
+
+  <rect x="770" y="160" width="260" height="120" rx="14" fill="#dbe9ff" stroke="#4d79b3" stroke-width="2" />
+  <text x="900" y="225" fill="#123357" font-size="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Autonomy Loop</text>
+
+  <rect x="1110" y="160" width="200" height="120" rx="14" fill="#dbe9ff" stroke="#4d79b3" stroke-width="2" />
+  <text x="1210" y="225" fill="#123357" font-size="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Dispatch</text>
+
+  <rect x="250" y="430" width="310" height="120" rx="14" fill="#e7f5ec" stroke="#4f9a6e" stroke-width="2" />
+  <text x="405" y="495" fill="#114a2b" font-size="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">APIs (Reddit/X/Meta)</text>
+
+  <rect x="840" y="430" width="310" height="120" rx="14" fill="#fff2df" stroke="#bf8a33" stroke-width="2" />
+  <text x="995" y="495" fill="#5c3a06" font-size="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Operator Queue</text>
+
+  <line x1="350" y1="220" x2="430" y2="220" stroke="#456d9c" stroke-width="4" />
+  <line x1="690" y1="220" x2="770" y2="220" stroke="#456d9c" stroke-width="4" />
+  <line x1="1030" y1="220" x2="1110" y2="220" stroke="#456d9c" stroke-width="4" />
+  <line x1="1210" y1="280" x2="405" y2="430" stroke="#5f7ea3" stroke-width="3" />
+  <line x1="1210" y1="280" x2="995" y2="430" stroke="#5f7ea3" stroke-width="3" />
+
+  <text x="700" y="680" fill="#2d4665" font-size="24" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Replace this SVG with your final architecture diagram</text>
+</svg>

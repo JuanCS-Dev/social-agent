@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-label="Social Agent dashboard placeholder">
+  <rect width="1400" height="860" fill="#f4f6f9" />
+  <text x="700" y="70" fill="#1c2f4a" font-size="40" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Operations Dashboard Placeholder</text>
+
+  <rect x="80" y="120" width="600" height="250" rx="12" fill="#ffffff" stroke="#b9c6d6" stroke-width="2" />
+  <text x="110" y="155" fill="#2d435f" font-size="22" font-family="Arial, Helvetica, sans-serif">Events Rate</text>
+
+  <rect x="720" y="120" width="600" height="250" rx="12" fill="#ffffff" stroke="#b9c6d6" stroke-width="2" />
+  <text x="750" y="155" fill="#2d435f" font-size="22" font-family="Arial, Helvetica, sans-serif">Errors / DLQ</text>
+
+  <rect x="80" y="410" width="600" height="250" rx="12" fill="#ffffff" stroke="#b9c6d6" stroke-width="2" />
+  <text x="110" y="445" fill="#2d435f" font-size="22" font-family="Arial, Helvetica, sans-serif">Platform Success Rate</text>
+
+  <rect x="720" y="410" width="600" height="250" rx="12" fill="#ffffff" stroke="#b9c6d6" stroke-width="2" />
+  <text x="750" y="445" fill="#2d435f" font-size="22" font-family="Arial, Helvetica, sans-serif">Operator Queue</text>
+
+  <rect x="80" y="700" width="1240" height="100" rx="12" fill="#ffffff" stroke="#b9c6d6" stroke-width="2" />
+  <text x="700" y="760" fill="#2d435f" font-size="24" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Replace this SVG with a real dashboard screenshot</text>
+</svg>
